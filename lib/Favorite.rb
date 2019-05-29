@@ -1,6 +1,4 @@
 class Favorite < ActiveRecord::Base  
-    def change
-        belongs_to :users 
-        belongs_to :poems
-    end
+    belongs_to :user
+    belongs_to :poem
 end

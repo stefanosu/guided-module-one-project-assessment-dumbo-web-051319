@@ -1,5 +1,3 @@
-class Poet < ActiveRecord::Base 
-     def change 
-        has_many :poems
-     end
+class Poet < ActiveRecord::Base    
+    has_many :poems   
 end
