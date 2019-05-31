@@ -4,7 +4,11 @@ Poem.destroy_all
 User.destroy_all
 Favorite.destroy_all
 
-poem4_string = "if 
+poem5_string = 'sgdgafasf' 
+poem4_string = 'aggdgdsgd' 
+poem3_string = 'donuts'
+
+poem2_string = "if 
 the ocean 
 can calm itself, 
 so can you.
@@ -155,8 +159,8 @@ poem4 = Poem.create(poet_id: poet4.id, title: "Nature", genre: "ocean", content:
 poem5 = Poem.create(poet_id: poet5.id, title:"Things", genre: "reason", content: poem5_string) 
 
 
-user1 = User.create(name: "name", email: "email", password: "password")
-user2 = User.create(name: "name", email: "email", password: "password")
+user1 = User.create(name: "name", email: "k@k.com", password: "123")
+user2 = User.create(name: "name", email: "help@me.com", password: "password")
 user3 = User.create(name: "name", email: "email", password:  "password")
 user4 = User.create(name: "name", email: "email", password: "password")
 user5 = User.create(name: "name", email: "email", password: "password")
