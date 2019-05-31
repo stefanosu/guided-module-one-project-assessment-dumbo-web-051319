@@ -28,30 +28,38 @@ def find_poem
     end 
 end     
 
-    def update_or_delete_fav_poem(response)
-       change_option = $prompt.select("Do you want to update or delete?", ["Update", "Delete"])
-       binding.pry 
-        
-       if user_option == "Delete" 
-           .reload 
-            fav.destroy  
-            #call .delete or .destroy on fav_poem of $curruser  method #
-            # fav_poem(poem)
-        elsif user_option == "Update"
-            Favorite.poem.find_by(title: poem)
-            puts "You mispelled the title!" 
-        end       
+    def update_or_delete_fav_poem
+       if user_input == "Update" 
+        User.update($current_user.id) 
+        $current_user == Favorite.find_by(poems.id)
+
+        # $current_user = Favorite.find_by($current_user.id)
+        # $current_user.id.favorites.map {|user| current_user.poem.id }
+        # $current_user == Favorite.find_by($poem.id)
+
+        # $current_user = Favorite.poem.find_by($current_user.id)
+        puts "You mispelled the title!" 
+        end   
+        # my_titles.reload 
+            # fav.destroy  
+        #call .delete or .destroy on fav_poem of $curr_user  method  # fav_poem(poem)
+           
     end 
 
     def display_favs
-      my_favs = Favorite.all.select {|favorite| favorite.user_id == $current_user.id }
-      my_poems = my_favs.map {|fav| fav.poem }
+        # my_favs = $curr_user.favorites
+    #   my_favs = Favorite.all.select {|favorite| favorite.user_id == $current_user.id }
+    #   my_poems = my_favs.map {|fav| fav.poem }
+      my_poems = $current_user.poems
       my_titles = my_poems.map {|poem| poem.title }
       response = $prompt.select("Select your favorite poem titles", my_titles)
+      change_option = $prompt.select("Do you want to update or delete?", ["Update", "Delete"])
+
+      
     end
 
 
-def all_poets 
+    def all_poets 
     poet_list = Poet.all.map {|poet| poet.name}
     # binding.pry 
     response = $prompt.select("Select your favorite poet.", poet_list)
@@ -80,8 +88,8 @@ def main_menu
         all_poets
 
     when "See your favorites"
+        # user_input = update_or_delete_fav_poem
         display_favs
-  
     end  
 end 
 
@@ -92,18 +100,17 @@ def start_program
         puts "whats your email?"
         user_email = gets.chomp
         $current_user = User.find_by(email: user_email)
-        if $current_user.nil?
+        # binding.pry
+        if $current_user == nil
             puts "Cannot find a user with that email..."
             sleep(1)
             puts "exiting..."
             sleep(1)
             return false
+        else
+            main_menu   
         end
-
-        main_menu  
-    
-    elsif 
-        user_login == "Create"
+    elsif user_login == "Create"
         puts "Create your profile"
         user_name = $prompt.ask("What is your name?")
         user_email = $prompt.ask("What is your email?")
@@ -114,96 +121,3 @@ def start_program
 end
  
 start_program
- 
- 
-
-
-# user_input = prompt.ask("What is your username?")
-
-# user_email = prompt.ask("Please enter yout email") do |q|
-#     q.validate(/\A\w+@\w+\.\w+\Z/)
-#     q.messages[:valid?] = "Invalid email address"
-#   end
-
-# user_password = prompt.mask("Please enter your password:")
-
-
-
-
-
-
-# user_input = nil
-
-# while user_input != "Exit"
-#     user_input = $prompt.select("What would you like to do?", [
-#         "Find a Poem to Read",
-#         "See all Poets",
-#         "Exit"
-#     ])
-#     case  user_input 
-#     when "Find a Poem to Read" 
-#         poem_list = Poem.all.map { |poem| poem.title }
-#         response = $prompt.select("Select your favorite poem.", poem_list)
-#         poem = Poem.find_by(title: response)  
-#         spawn "say '#{poem.content}'"
-#         poem.content.each_char {|c| putc c ; sleep 0.07; $stdout.flush }   
-#     when "See all Poets"
-#         poet_list = Poet.all.map {|poet| poet.name}
-#         response = $prompt.select("Select your favorite poet.", poet_list)
-#         poet = Poet.find_by(name: response)  
-        
-#         content_list = poet.poems.map { |poem| poem.content }  
-#         content_response = $prompt.select("Poems", content_list) 
-        
-#         poet_content = Poet.find_by(content: content_response)
-#         spawn "say '#{poem.content}'"
-#         poem.content.each_char {|c| putc c ; sleep 0.07; $stdout.flush }
-#     end  
-# end
-
-    # def fav_user()
-    #     if user_input == 'Select your favorite poem.'
-    #         fav_response =  $prompt.ask("Save your favorite poem")
-    #         poem = Poem.find_by(title: fav_response)
-    #     # elsif
-    #     #    user_input == "Select your favorite poet."   
-    #     end    
-    # end
-
-
-
-#     case  user_input 
-#         when "Find a Poem to Read" 
-#             poem_list = Poem.all.map { |poem| poem.title }
-#             response = prompt.select("Select your favorite poem.", poem_list)
-#             poem = Poem.find_by(title: response)            
-
-
-#     # when user_input == "See all Poets"
-
-    
-# end
-
-# Favorite.create(user_id: current_user.id, poem_id:)
-
-# user_selection = prompt.select("Choose a poem to read", poem_list)
-
-
-
-
-
-
-
-       
-
-
-
-
-
-
-
-
-
-
-
-
